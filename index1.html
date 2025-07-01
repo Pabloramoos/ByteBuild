@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ByteBuild_PIN</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .Envio-box {
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      background-color: #fff;
+      width: 320px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .Envio-box img {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
+    }
+    .Envio-box p {
+      margin-bottom: 20px;
+    }
+    .botao-envio {
+      width: 70%;
+      padding: 12px;
+      margin-bottom: 15px;
+      background-color: #d9d9d9;
+      color: #000000;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      user-select: none;
+    }
+    .botao-envio:hover {
+      background-color: #555;
+      color: white;
+    }
+    .botao-envio.selected {
+      background-color: #000000;
+      color: rgb(255, 255, 255);
+      font-weight: bold;
+    }
+    .botoes-acao {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .botao-sair {
+      flex: 1;
+      padding: 12px;
+      background-color: white;
+      color: black;
+      text-decoration: none;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-align: center;
+      display: inline-block;
+    }
+    .botao-sair:hover {
+      background-color: #eee;
+    }
+    .botao-continuar {
+      flex: 1;
+      padding: 12px;
+      background-color: #000000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: not-allowed;
+      opacity: 0.5;
+      transition: background-color 0.3s;
+    }
+    .botao-continuar.enabled {
+      cursor: pointer;
+      opacity: 1;
+    }
+    .botao-continuar.enabled:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="Envio-box">
+    <img src="ByteBuild Logo.jpg" alt="Logo da ByteBuild" />
+    <p>Escolha como deseja receber o código de verificação para redefinir sua senha.</p>
+
+    <button class="botao-envio" data-method="email">Email</button>
+    <button class="botao-envio" data-method="sms">SMS</button>
+
+    <div class="botoes-acao">
+      <a href="index.html" class="botao-sair">Voltar</a>
+      <button class="botao-continuar" disabled>Continuar</button>
+    </div>
+  </div>
+
+  <script>
+    const botoesEnvio = document.querySelectorAll('.botao-envio');
+    const botaoContinuar = document.querySelector('.botao-continuar');
+    let metodoSelecionado = null;
+
+    botoesEnvio.forEach(botao => {
+      botao.addEventListener('click', () => {
+
+        botoesEnvio.forEach(b => b.classList.remove('selected'));
+        // Marca esse como selecionado
+        botao.classList.add('selected');
+        // Guarda a escolha
+        metodoSelecionado = botao.dataset.method;
+        // Habilita botão continuar
+        botaoContinuar.disabled = false;
+        botaoContinuar.classList.add('enabled');
+      });
+    });
+
+    botaoContinuar.addEventListener('click', () => {
+      if (!metodoSelecionado) return;
+
+      // Redireciona para a próxima página, passando o método escolhido
+      // Exemplo: próxima página "confirmar.html?metodo=email"
+      window.location.href = `index2.html?metodo=${metodoSelecionado}`;
+    });
+  </script>
+</body>
+</html>
